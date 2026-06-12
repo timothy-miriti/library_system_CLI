@@ -1,6 +1,20 @@
 """
-models.py
-Simple classes for Book, Member, and BorrowRecord.
+Data Models for Library Management System
+
+This module defines the core data models used throughout the application:
+- Book: Represents a book in the library with copy tracking
+- Member: Represents a registered library member
+- BorrowRecord: Represents a loan transaction (borrowing and returning)
+
+Each model includes:
+- Auto-incrementing ID generation
+- String representation for display
+- Serialization (to_dict) and deserialization (from_dict) for JSON storage
+- Additional properties for calculated values (e.g., fine calculations)
+
+Configuration Constants:
+- FINE_PER_DAY: Amount charged per overdue day (KES 5.00)
+- LOAN_DAYS: Standard loan period in days (14 days)
 """
 
 import datetime
@@ -10,6 +24,16 @@ LOAN_DAYS    = 14    # how many days before a book is overdue
 
 
 class Book:
+    """
+    Represents a book in the library.
+    
+    Attributes:
+        id (int): Unique identifier (auto-generated)
+        title (str): Book title
+        author (str): Author name
+        total_copies (int): Total number of physical copies
+        available (int): Number of copies currently available to borrow
+    """
     # Counts how many books have been created (auto ID)
     id_counter = 1
 
@@ -38,6 +62,17 @@ class Book:
 
 
 class Member:
+    """
+    Represents a registered library member.
+    
+    Attributes:
+        id (int): Unique identifier (auto-generated)
+        name (str): Member's full name
+        email (str): Member's email address
+        joined (str): ISO format timestamp when member registered
+        fines (float): Outstanding fine balance (KES)
+        active_loans (list): List of record IDs for currently borrowed books
+    """
     id_counter = 1
 
     def __init__(self, name, email):
@@ -67,6 +102,23 @@ class Member:
 
 
 class BorrowRecord:
+    """
+    Represents a borrow transaction (loan of a book to a member).
+    
+    Attributes:
+        id (int): Unique identifier (auto-generated)
+        member_id (int): ID of the member who borrowed
+        member_name (str): Member's name (cached for display)
+        book_id (int): ID of the borrowed book
+        book_title (str): Book title (cached for display)
+        borrowed_on (str): ISO format timestamp when borrowed
+        due_on (str): ISO format timestamp when due (14 days from borrow)
+        returned_on (str): ISO format timestamp when returned (None if active)
+    
+    Properties:
+        is_overdue: True if loan is past due date and not yet returned
+        fine: Calculated fine amount based on days overdue (KES 5.00/day)
+    """
     id_counter = 1
 
     def __init__(self, member_id, member_name, book_id, book_title):
