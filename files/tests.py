@@ -68,6 +68,12 @@ def test_record_new_record_is_active_not_overdue():
     assert record.fine == 0.0
 
 
+def test_record_uses_datetime_timestamps():
+    record = BorrowRecord(1, "Alice", 1, "1984")
+    assert "T" in record.borrowed_on
+    assert "T" in record.due_on
+
+
 def test_record_overdue_fine_is_calculated():
     record = BorrowRecord(1, "Alice", 1, "1984")
     record.due_on = "2020-01-01"

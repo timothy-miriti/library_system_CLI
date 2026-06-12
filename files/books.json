@@ -1,8 +1,9 @@
 [
+  
   {
-    "id": 1,
-    "title": "The one and only",
-    "author": "Paulo Coelho",
+    "id": 2,
+    "title": "2002",
+    "author": "me",
     "total_copies": 2,
     "available": 2
   }

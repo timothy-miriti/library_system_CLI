@@ -1,9 +1,9 @@
 [
   {
     "id": 1,
-    "name": "Alice Kamau",
-    "email": "alice@mail.com",
-    "joined": "2026-06-12",
+    "name": "Timoh",
+    "email": "tim@mail.com",
+    "joined": "2026-06-12T13:40:39",
     "fines": 0.0,
     "active_loans": []
   }

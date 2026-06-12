@@ -3,6 +3,8 @@ library.py
 All library actions: add, borrow, return, search, list, etc.
 """
 
+import datetime
+
 from models import Book, Member, BorrowRecord
 from storage import save, load, BOOKS_FILE, MEMBERS_FILE, RECORDS_FILE
 
@@ -105,8 +107,7 @@ class Library:
             raise ValueError(f"Record #{record_id} is already returned.")
 
         fine = record.fine
-        from datetime import date
-        record.returned_on = date.today().isoformat()
+        record.returned_on = datetime.datetime.now().isoformat(timespec="seconds")
 
         # Update book and member
         book   = self.find_book(record.book_id)

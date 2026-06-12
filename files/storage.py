@@ -6,15 +6,15 @@ Handles saving and loading all data to/from JSON files.
 import json
 import os
 
-DATA_DIR     = os.path.join(os.path.dirname(__file__), "data")
-BOOKS_FILE   = os.path.join(DATA_DIR, "books.json")
-MEMBERS_FILE = os.path.join(DATA_DIR, "members.json")
-RECORDS_FILE = os.path.join(DATA_DIR, "records.json")
+BASE_DIR     = os.path.dirname(__file__)
+BOOKS_FILE   = os.path.join(BASE_DIR, "books.json")
+MEMBERS_FILE = os.path.join(BASE_DIR, "members.json")
+RECORDS_FILE = os.path.join(BASE_DIR, "records.json")
 
 
 def save(filepath, items):
     """Save a list of objects to a JSON file."""
-    os.makedirs(DATA_DIR, exist_ok=True)
+    os.makedirs(os.path.dirname(filepath), exist_ok=True)
     with open(filepath, "w") as f:
         json.dump([item.to_dict() for item in items], f, indent=2)
 

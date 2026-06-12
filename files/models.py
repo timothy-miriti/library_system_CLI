@@ -3,7 +3,7 @@ models.py
 Simple classes for Book, Member, and BorrowRecord.
 """
 
-from datetime import date, timedelta
+import datetime
 
 FINE_PER_DAY = 5.0   # KES per overdue day
 LOAN_DAYS    = 14    # how many days before a book is overdue
@@ -44,7 +44,7 @@ class Member:
         self.id           = Member.id_counter
         self.name         = name
         self.email        = email
-        self.joined       = date.today().isoformat()
+        self.joined       = datetime.datetime.now().isoformat(timespec="seconds")
         self.fines        = 0.0
         self.active_loans = []    # list of record IDs
         Member.id_counter += 1
@@ -75,20 +75,20 @@ class BorrowRecord:
         self.member_name = member_name
         self.book_id     = book_id
         self.book_title  = book_title
-        self.borrowed_on = date.today().isoformat()
-        self.due_on      = (date.today() + timedelta(days=LOAN_DAYS)).isoformat()
+        self.borrowed_on = datetime.datetime.now().isoformat(timespec="seconds")
+        self.due_on      = (datetime.datetime.now() + datetime.timedelta(days=LOAN_DAYS)).isoformat(timespec="seconds")
         self.returned_on = None
         BorrowRecord.id_counter += 1
 
     @property
     def is_overdue(self):
-        return not self.returned_on and date.today() > date.fromisoformat(self.due_on)
+        return not self.returned_on and datetime.datetime.now() > datetime.datetime.fromisoformat(self.due_on)
 
     @property
     def fine(self):
         if not self.is_overdue:
             return 0.0
-        days = (date.today() - date.fromisoformat(self.due_on)).days
+        days = (datetime.datetime.now() - datetime.datetime.fromisoformat(self.due_on)).days
         return round(days * FINE_PER_DAY, 2)
 
     def __str__(self):
