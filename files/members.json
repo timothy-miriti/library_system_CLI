@@ -1,0 +1,10 @@
+[
+  {
+    "id": 1,
+    "name": "Alice Kamau",
+    "email": "alice@mail.com",
+    "joined": "2026-06-12",
+    "fines": 0.0,
+    "active_loans": []
+  }
+]

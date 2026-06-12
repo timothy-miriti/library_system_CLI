@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "member_id": 1,
+    "member_name": "Alice Kamau",
+    "book_id": 1,
+    "book_title": "The Alchemist",
+    "borrowed_on": "2026-06-12",
+    "due_on": "2026-06-26",
+    "returned_on": "2026-06-12"
+  }
+]
